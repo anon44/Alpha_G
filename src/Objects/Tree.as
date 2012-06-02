@@ -1,11 +1,15 @@
 package Objects 
 {
-	
+	/* //TODO Find or create a better sprite
+	 * Add two different sounds for crush
+	 * 
+	 * 
+	 * 
+	 * */
 	import SideScroller.*;
 	import org.flixel.*;
 	import GameAssets;
 	import levels.*;
-	
 	
 	public class Tree extends FlxSprite
 	{
@@ -20,7 +24,6 @@ package Objects
 			solid = true;
 			addAnimation("idle", [1]);
 			addAnimation("crushed", [2]);
-			
 			frame = 1;
 		}
 
@@ -51,6 +54,7 @@ package Objects
 			solid = false;
 			moves = false;
 			
+			FlxG.play(GameAssets.stompTree, .35);
 			//Coins
 			//cE =   new coinEmitter(this.x, this.y);
 			//cE.start(true, 0, 0, 1);

@@ -3,7 +3,7 @@ package Objects
 	import org.flixel.*;
 	import GameAssets;
 	/**
-	 * 
+	 * The image of the sprite could be smaller
 	 * 
 	 */
 	public class Coin extends FlxParticle

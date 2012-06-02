@@ -5,12 +5,14 @@ package SideScroller
 	import Objects.*;
 	/**
 	 * Player-controlled entity
-	 *
+	 * Nothing for now 
+	 * Recreate player for next release
 	 */
 	public class Player extends SideScrollerEntity
 	{
 		public static var _velocityX:int;
 		public static var _x:int;
+		public static var _y:int;
 		public static var _width:int;
 		public var startPosition:FlxPoint = new FlxPoint(150, 200);
 		
@@ -25,6 +27,7 @@ package SideScroller
 			//For the elevators
 			_velocityX = new int;
 			_x = new int;
+			_y = new int;
 			_width = new int;
 			
 		}
@@ -83,6 +86,7 @@ package SideScroller
 			//Update the position to the elevators
 			_velocityX = velocity.x;
 			_x = x;
+			_y = y;
 			_width = width;
 		}
 		
@@ -90,7 +94,7 @@ package SideScroller
 		{
 			if (flickering)
 				return
-			//Play Sound
+			FlxG.play(GameAssets.playerHit);
 			flicker(1.3);
 			health -= 1;
 		}
@@ -105,7 +109,7 @@ package SideScroller
 			super.kill();
 			//Play sound
 			//play("squished");
-			
+			FlxG.play(GameAssets.gLaugh);
 			//Gibs creator
 			_gibs = new FlxEmitter(0,0, -1.5);
 			_gibs.setXSpeed(-150,170);

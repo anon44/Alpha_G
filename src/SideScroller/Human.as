@@ -1,15 +1,17 @@
 package  SideScroller
 {
 	import org.flixel.*;
+	import org.flixel.plugin.photonstorm.*;
 	import levels.PlayState;
 	import GameAssets;
-	import Enemies.elevatorMain;
-	import Enemies.Elevator1;
-	import Enemies.Elevator2;
+	import Enemies.*;
 	
 	/**
 	 * Human Entity 
-	 *  Add sounds to the turnAround and Kill functions 
+	 *  Add sounds to the turnAround and Kill functions
+	 *  Add Animations to scream and hide
+	 *  Have body parts in a gib emitter 
+	 *  Edit Sprites
 	 */
 	
 	public class Human extends SideScrollerEntity 
@@ -18,14 +20,22 @@ package  SideScroller
 		public var _health:Number;
 		public var _gibs:FlxEmitter;
 		public var _timer:Number;
+		private var myRadians:int;
+		private var myDegrees:int;
+		private var yChange:int;
+		private var xChange:int;
+		private var yMove:int;
+		private var xMove:int;
 		
 		public function Human(X:int, Y:int) 
 		{
 			super(X, Y);
 			loadGraphic(GameAssets.imgHuman, true, true, 26, 25);
+			facing = FlxObject.LEFT;
 			_health = 1;
 			solid = true;
-			velocity.x = 0;
+			drag.x = 20; //This is here only for this stage, remove or adjust for the game
+			acceleration.y = 50;
 		}
 		
 		override protected function createAnimations():void
@@ -38,27 +48,31 @@ package  SideScroller
 		{
 			super.updateControls();
 			if (alive)
-			{
-				if (Elevator2._x-50 <= x && facing == FlxObject.LEFT)
+			{	
+				//New code
+				this.xChange = Math.round(this.x - followObject._x);
+				if (xChange < -300 || xChange > 300) //This if statment is going to tell the object to stop moving if the player is out of range
+				//				-^-				-^- Adjust these values when applying to game 
+				{
+					this.velocity.x = 0; //Stop moving
+				}
+				else
+				{
+					this.xMove = Math.round(xChange / 200); //Start moving
+					this.velocity.x += xMove;
+				}
+				
+				if (followObject._x <= x-25 && facing == FlxObject.LEFT)
+				{
+					FlxG.play(GameAssets.humanScream1, .5);
+					turnAround();
+				}
+				else if (followObject._x>= x+25 && facing == FlxObject.RIGHT)
 				{
 					turnAround();
 				}
 				
-				if (Elevator1._x-50 <= this.x && facing == FlxObject.LEFT)
-				{
-					turnAround();
-				}
-				if (Elevator1._x+50 >= x && facing == FlxObject.RIGHT)
-				{
-					turnAround();
-				}
 				
-				
-				
-				if (Elevator2._x+50 >= x && facing == FlxObject.RIGHT)
-				{
-					turnAround();
-				}
 	
 				if (velocity.x > 0 || velocity.x < -1)
 					play("running");
@@ -107,22 +121,13 @@ package  SideScroller
 			if (facing == FlxObject.LEFT)
 			{
 				facing = FlxObject.RIGHT;
+				this.velocity.x += xMove;
 				
-				velocity.x = 50;
-				
-				//if (PlayState._elevator.x <= x || PlayState.__elevator2.x <= x )
-				//{
-					velocity.x = FlxG.random()*100;
-				//}
 			}
 			else
 			{
 				facing = FlxObject.LEFT;
-				
-				//if (PlayState._elevator.x >= x+50 || PlayState.__elevator2.x >= x+50 )
-				//{
-					velocity.x = FlxG.random() * -100; 
-				//}
+				this.velocity.x += xMove;
 			}
 		}
 		
@@ -136,13 +141,13 @@ package  SideScroller
 		{
 			if (!alive)
 				return;
-			
+			alive = false;
 			moves = false;
 			solid = false;
-			alive = false;
 			play("killed");
 			frame = 0;
-			//Play sound
+			//Play sound 
+			FlxG.play(GameAssets.humanHit, .75);
 			
 			//Gibs creator
 			_gibs = new FlxEmitter(0,0, -1.5);
@@ -151,7 +156,7 @@ package  SideScroller
 			_gibs.setRotation(-720,-720);
 			_gibs.gravity = 300;
 			_gibs.bounce = 0.1;
-			_gibs.makeParticles(GameAssets.blood, 15, 10, true, 0.5);
+			_gibs.makeParticles(GameAssets.blood, 20, 10, true, 0.5);
 			FlxG.state.add(_gibs);
 			
 			

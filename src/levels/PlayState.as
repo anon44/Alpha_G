@@ -1,6 +1,10 @@
 package levels
 {
-
+	/* //TODO: Clean up code
+	 * Configure deathstate and win state
+	 * 
+	 * 
+	 * */
 	import Menus.*;
 	import Objects.Tree;
 	import org.flixel.*;
@@ -21,7 +25,7 @@ package levels
 		public var _level:FlxTilemap;
 		public var backgGroup:FlxGroup;
 		public static var floorGroup:FlxGroup;
-		public var _player:Player;
+		public static var _player:Player;
 		public var _trees:FlxGroup;
 		public var _tree:Tree;
 		public var _menu:MenuState = new MenuState;
@@ -29,10 +33,11 @@ package levels
 		public var _coin:Coin = new Coin;
 		
 		//Humans
-		public var _humans:FlxGroup;
-		public var _human:Human;
+		public var _humans:Humans;
+		
 		
 		//Add the Enemies
+		public var _followObject:followObject;
 		public var _elevators:FlxGroup;
 		public var _elevator1:Elevator1
 		public var _elevator2:Elevator2;
@@ -88,9 +93,6 @@ package levels
 			 * Create the objects
 			 */
 			
-			_humans = new FlxGroup;
-				
-			
 			_coinEmitter = new FlxEmitter(0, 0, 20);
 			_coinEmitter.gravity = 350;
 			_coinEmitter.setRotation(0, 0);
@@ -105,7 +107,7 @@ package levels
 			 
 			//Trees
 			 _trees = new FlxGroup;
-			for (var i:int = 0; i < 20; i++)
+			for (var x:int = 0; x < 20; x++)
 			{
 				_tree = new Tree(FlxG.random() * 1200, 240);//Use this as a for loop later
 				_trees.add(_tree);
@@ -115,13 +117,19 @@ package levels
 			/**
 			 * Create the player, NPCs, and the enemies
 			 */
+			
 			//Player
 			_player = new Player(150, 200);
+			
+			//Humans
+			_humans = new Humans;
 			
 			//Enemies
 			_elevators = new FlxGroup();
 			_elevator1 = new Elevator1(_elevatorStart.x, _elevatorStart.y);
 			_elevator2 = new Elevator2(_elevatorStart.x, _elevatorStart.y);
+			_followObject  = new followObject(0, 100);
+			_elevators.add(_followObject);
 			_elevators.add(_elevator1);
 			_elevators.add(_elevator2);
 			
@@ -228,7 +236,7 @@ package levels
 			
 			if (_timer > 5)
 			{
-				createHuman();
+				addHumans();
 				_timer = 0;
 			}
 			//if (hideGameMessageDelay == 0)
@@ -252,13 +260,11 @@ package levels
 		 * Call the private events 
 		 * 
 		 * */
-		private function createHuman():void
+		private function addHumans():void
 		{
 			var x: int = FlxG.random()*1500;
-			var y: int = 250;
-			_humans.add(_human = new Human(x, y));
-			//_humans.add(new Human(x, y));//TO DO/ You are here
-			
+			var y: int = 255;
+			_humans.addHuman(x, y);
 		}
 		/**
 		 * When the player gets hit
@@ -269,7 +275,6 @@ package levels
 			{
 				if (!_player.flickering)
 				{
-					//player.hurt(.5);	//Forgot about the hurt function that is built in flixel //Taking too much health
 					_player.hit();
 					if (_player.health <= 2)
 					{
@@ -289,10 +294,9 @@ package levels
 		
 		private function collectedCoin(player:FlxObject, coin:FlxObject):void
 		{
+			FlxG.play(GameAssets.coinGet, 2);
 			coin.kill();
-               
 			FlxG.score += 1;
-               
 			scoreText.text = "Score: " + FlxG.score.toString();
 		}
 
@@ -308,7 +312,7 @@ package levels
 			
 		}
 		
-		private function killHuman(_elevators:FlxObject, _humans:FlxObject):void
+		private function killHuman(_elevators:FlxObject, _human:FlxObject):void
 		{
 			_human.kill()
 			_coinEmitter.x = _human.x;
@@ -357,7 +361,7 @@ package levels
 			//Make sure the player still has lives to restart
 			if (totalLives == 0)
 			{
-				gameOver();
+				FlxG.fade(0xff000000, 2, gameOver);
 			}
 			else
 			{
@@ -371,10 +375,18 @@ package levels
 		//This is called when the game is over 
 		private function gameOver():void
 		{
-			var text:FlxText = new FlxText(50, 50, 100, "GAME OVER")
-			hideGameMessageDelay = 100;
+			FlxG.switchState(new GameOver());
+			//var text:FlxText = new FlxText(50, 50, 100, "GAME OVER")
+			//hideGameMessageDelay = 100;
 			
 		}
+		
+		//Destory the Objects
+		public function destory():void
+		{
+			super.destroy();
+		}
+		
 	}//End of Class
 	
 }//End of Package
