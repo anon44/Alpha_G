@@ -1,8 +1,3 @@
-/*
- * Add a simple animation 
- * Add sounds to the turnAround and Kill functions 
- *  
- */
 package Enemies
 {
 	import Enemies.*;
@@ -21,15 +16,15 @@ package Enemies
 		{
 			super(X, Y);
 			loadGraphic(GameAssets.elevatorPIC, false, true);
-			startPoint = new FlxPoint(0, 75);
-			endPoint = new FlxPoint(0, 275); //Change this back later
+			startPoint = new FlxPoint(followObject._x, 75);
+			endPoint = new FlxPoint(0, 275); 
 			down = true;
 			moves = false;
 			velocity.y = RUNSPEED;
 			immovable = true;
 			allowCollisions = FlxObject.ANY;
 			_x = new int;
-			solid = true; //This seems to fix the knock down issue Old code: solid = false;
+			solid = true; 
 		}
 		
 		/**
