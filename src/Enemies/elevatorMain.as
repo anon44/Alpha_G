@@ -4,9 +4,15 @@ package Enemies
 /**
 	 * This is the main class for the elevator
 	 * UPDATE: It looks like I got the new code working.
+	 * Add sounds to the turnAround and Kill functions 
+	 *  Other Things:
+	 *   Add kick functions
+	 * 
 	 */
 	import org.flixel.*;
 	import SideScroller.*;
+	import levels.PlayState;
+	import org.flixel.plugin.photonstorm.*;
 	
 	
 	public class elevatorMain extends FlxSprite
@@ -18,6 +24,8 @@ package Enemies
 		public var endPoint:FlxPoint;
 		public var down:Boolean;
 		public static const RUNSPEED:int = 25;
+		public var xMove:int;
+		public var xChange:int;
 		//public static var _x:int;
 		
 		/**
@@ -32,10 +40,8 @@ package Enemies
 			velocity.y = RUNSPEED;
 			immovable = true;
 			allowCollisions = FlxObject.ANY;
-			//_x = new int;
-			
-			
-			solid = true; //This seems to fix the knock down issue Old code: solid = false;
+			facing = FlxObject.LEFT;
+			solid = true; 
 		}
 		
 		/**
@@ -43,6 +49,19 @@ package Enemies
 		 * Will add later
 		 */
 		
+		//This is for to create the turn around animation for the step
+		// This should work with the code
+		private function turnAround():void
+		{
+			if (facing == FlxObject.LEFT)
+			{
+				facing = FlxObject.RIGHT;
+			}
+			else
+			{
+				facing = FlxObject.LEFT;
+			}
+		}
 		 
 		 /**
 		  * Update each time step
@@ -59,9 +78,8 @@ package Enemies
 		  */
 		 protected function updateControls():void
 		 {
-			 
 			if(moves) //If move is true then move
-			{		
+			{
 					//Going up
 					if(y >= endPoint.y)
 					{   
@@ -70,46 +88,36 @@ package Enemies
 						down = true;
 						
 						FlxG.shake(.005, .1); // Shake the level
-						
+						FlxG.play(GameAssets.stompBoom);
 						velocity.y = -155;		
-						
-						
-						
-						/*if (Player._velocityX >= 0) if(Player._x - 100 <= x) //New code that we are testing
-						{
-							velocity.x  = Player._velocityX; //When the player is moving faster than the elevator, the elevator will move towards the player
-						}*/
-							
-						/*if (Player._velocityX <= -1) if(Player._x + 100 >= x) //New code that we are testing
-						{
-							velocity.x = Player._velocityX; //When the player is going backwards, the elevator moves back
-						}*/
 					}
 				
 					else if (y <= startPoint.y)//If the elevator has not reached the upper limit then send the elevator up
 					{
+						x = followObject._x; //Follow the follow object
 						y = startPoint.y; //Reached the bottom 
-						//x = Player._x + (Player._width / 2 ) - (width / 2); 
+						
+						velocity.y = +200;
+						
+						if (followObject._a == 0) //To detect if the player is near the step
+						{
+							//velocity.x = RUNSPEED; Leave this out for now
+							velocity.y = +300; //Hard stomp
+							//Sound here
 							
-						velocity.y = +200; //+155 Going down
-						//velocity.y = velocity.y * _curFrame *_curFrame-2 +200; //Trying something new
-						
-						//IF the player is with a 100 pixel of one of the elevators then attack the player head on
-						/*if (Player._velocityX <= 0)*/ if(Player._x - 100 <= x || Player._x + 100 >= x) //New code that we are testing 
-						{
-							x = Player._x + (Player._width / 2 ) - (width / 2);
-							//velocity.x = Player._velocityX;
-							velocity.y = +300;
 						}
-						else
-						{
-							velocity.x = RUNSPEED;
-							velocity.y = +300;
-						}
-						
 					}//End of else if
 			}//End of movement 
-		 }
+			
+			if (followObject._x <= x-25 && facing == FlxObject.LEFT)
+			{
+				turnAround();
+			}
+			if (followObject._x>= x+25 && facing == FlxObject.RIGHT)
+			{
+				turnAround();
+			}
+		 }//End of update
 		 
 		 /**
 		  * To fix our little playstate issue
@@ -118,6 +126,7 @@ package Enemies
 		 {
 			 
 		 }
+		
 	}//End of Class
 	
 }//End of Package

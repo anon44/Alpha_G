@@ -2,33 +2,54 @@ package  Menus
 {
 	import org.flixel.*;
 	import levels.*;
+	import SideScroller.Human;
+	import Enemies.Elevator1;
 	
 	/**
 	 * This is the Menu State  
 	 */
 	public class MenuState extends FlxState
 	{
-			override public function create():void
+		public var title:FlxText;
+		public var info2:FlxText;
+		public var human:Human;
+		public var elevator:Elevator1;
+		
+		override public function create():void
 		{
 			FlxG.bgColor = 0xff3f3f3f;
 			
 			//Title
-			var logo:FlxText = new FlxText(FlxG.width *0.5 -200, 40, 400, "Test Alpha");
-			logo.setFormat(null, 24, 0xffffff, "center");
-			add(logo);
+			title = new FlxText(-200, 80, 400, "Title");
+			title.setFormat(null, 24, 0xffffff, "center");
+			title.antialiasing = true;
+			title.velocity.x = FlxG.width;
+			add(title);
+			
+			//Human
+			human = new Human( -50, 80);
+			human.acceleration.y = 0;
+			add(human);
+			
+			//G
+			elevator = new Elevator1(FlxG.width / 2 + 50, -20);
+			elevator.startPoint.y = 0
+			elevator.endPoint.y = 80;
+			add(elevator);
 			
 			//Info
-			var info:FlxText = new FlxText(FlxG.width * 0.5 -205, 80, 400, "Info: Press 'R' to reload the stage.");
-			info.setFormat(null, 8, 0xffffff, "center");
-			add(info);
+			//var info:FlxText = new FlxText(FlxG.width * 0.5 -205, 80, 400, "Info: Press 'R' to reload the stage.");
+			//info.setFormat(null, 8, 0xffffff, "center");
+			//add(info);
 			
-			var info2:FlxText = new FlxText(FlxG.width *0.5 -205, 100, 400, "Press any key to start");
+			info2 = new FlxText(FlxG.width *0.5 -205, 120, 400, "Press any key to start");
 			info2.setFormat(null, 8, 0xffffff, "center");
+			info2.visible = false;
 			add(info2);
 			
 			var info3:FlxText = new FlxText(FlxG.width *0.5 -205, 120, 400, "Press 'i' for more information");
 			info3.setFormat(null, 8, 0xffffff, "center");
-			add(info3);
+			//add(info3);
 			
 			//playbutton
 			//playButton = new FlxButton(FlxG.width/2-40,FlxG.height / 3 + 100, "Click To Play", onPlay);
@@ -44,7 +65,17 @@ package  Menus
 		}
 		override public function update():void
 		{
-			
+			super.update();	
+			if ( title.x > FlxG.width / 6-150)
+			{
+				title.velocity.x = 0;
+				human.velocity.x = 150;
+				if (human.x > FlxG.width / 2+10)
+				{
+					elevator.moves = true;
+					elevator.x = human.x;
+				}
+			}
 			
 			if (FlxG.keys.any() && !FlxG.keys.I)
 			{
@@ -55,9 +86,13 @@ package  Menus
 			{
 				FlxG.switchState(new Info());
 			}
-			
-			super.update();	
-			
+			FlxG.overlap(elevator, human, killHuman);
+		}
+		
+		private function killHuman(_elevator:FlxObject, _human:FlxObject):void
+		{
+			_human.kill()
+			info2.visible = true;
 		}
 		
 		protected function onPlay():void
