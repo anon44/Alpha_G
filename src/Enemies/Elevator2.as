@@ -1,13 +1,8 @@
-/*
- * Add a simple animation 
- * Add sounds to the turnAround and Kill functions 
- *  
- */
 package Enemies
 {
 	import Enemies.elevatorMain;
 	import org.flixel.*;
-	import enemies.*;
+	import Enemies.*;
 	import GameAssets;
 	import SideScroller.*;
 	
@@ -22,7 +17,7 @@ package Enemies
 		{
 			super(X, Y);
 			loadGraphic(GameAssets.elevator2PIC, false, true);
-			startPoint = new FlxPoint(0, 75);
+			startPoint = new FlxPoint(followObject._x, 75);
 			endPoint = new FlxPoint(0, 275); //Change this back later
 			down = true;
 			moves = false;
@@ -36,6 +31,7 @@ package Enemies
 		override public function update():void
 		{
 			//For the humans
+			
 			 _x = x;
 			super.updateControls();
 		}
