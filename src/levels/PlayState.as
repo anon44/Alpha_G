@@ -1,9 +1,7 @@
 package levels
 {
 	/* //TODO: Clean up code
-	 * Configure deathstate and win state
-	 * 
-	 * 
+	 *  
 	 * */
 	import Menus.*;
 	import Objects.Tree;
@@ -93,6 +91,7 @@ package levels
 			 * Create the objects
 			 */
 			
+			 //Coins
 			_coinEmitter = new FlxEmitter(0, 0, 20);
 			_coinEmitter.gravity = 350;
 			_coinEmitter.setRotation(0, 0);
@@ -137,6 +136,7 @@ package levels
 			 * Create the health text and bar
 			 */
 			
+			 //Create the group
 			 guiGroup = new FlxGroup();
 			
 			 //Create the hearts display
@@ -227,18 +227,19 @@ package levels
 					_counter3 = 0;
 				}
 			}
+			
+			//Don't know why but this onyl works down here
 			FlxG.overlap(_player, _coinEmitter, collectedCoin);
 			FlxG.overlap(_elevators, _humans, killHuman);
 			FlxG.overlap(_elevators, _trees, hitTree);
 			
-			//Spawner
-			
-			
+			//Spawner for the objects		
 			if (_timer > 5)
 			{
 				addHumans();
 				_timer = 0;
 			}
+			
 			//if (hideGameMessageDelay == 0)
 			//{
 				//FlxG.switchState(_menu);
@@ -250,6 +251,7 @@ package levels
 			
 			
 			//Reload the State when testing
+			//TODO: Delete this later
 			if (FlxG.keys.justReleased("R"))
 				FlxG.resetState();
 
@@ -285,13 +287,12 @@ package levels
 						_player.kill();
 						removeLife();
 						restart();
-						//FlxG.fade(0xff000000, 1, restart);
-						//cameraObject.velocity.x = 0; //Stop the camera if the player is dead 
 					}
 				}
 			}
 		}//End of playerHits1
 		
+		//Collect Coin
 		private function collectedCoin(player:FlxObject, coin:FlxObject):void
 		{
 			FlxG.play(GameAssets.coinGet, 2);
@@ -312,6 +313,7 @@ package levels
 			
 		}
 		
+		//Kill the Humans
 		private function killHuman(_elevators:FlxObject, _human:FlxObject):void
 		{
 			_human.kill()
@@ -363,7 +365,7 @@ package levels
 			{
 				FlxG.fade(0xff000000, 2, gameOver);
 			}
-			else
+			else //Restart the player
 			{
 				healthBar.createFilledBar(0xff005100, 0xff00F400, false);
 				_player.health = 5;
@@ -376,9 +378,6 @@ package levels
 		private function gameOver():void
 		{
 			FlxG.switchState(new GameOver());
-			//var text:FlxText = new FlxText(50, 50, 100, "GAME OVER")
-			//hideGameMessageDelay = 100;
-			
 		}
 		
 		//Destory the Objects
