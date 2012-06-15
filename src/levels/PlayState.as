@@ -127,7 +127,7 @@ package levels
 			_elevators = new FlxGroup();
 			_elevator1 = new Elevator1(_elevatorStart.x, _elevatorStart.y);
 			_elevator2 = new Elevator2(_elevatorStart.x, _elevatorStart.y);
-			_followObject  = new followObject(0, 100);
+			_followObject  = new followObject(0, -100);
 			_elevators.add(_followObject);
 			_elevators.add(_elevator1);
 			_elevators.add(_elevator2);
