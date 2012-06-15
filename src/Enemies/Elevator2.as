@@ -16,7 +16,7 @@ package Enemies
 		public function Elevator2(X:int, Y:int):void
 		{
 			super(X, Y);
-			loadGraphic(GameAssets.elevator2PIC, false, true);
+			loadGraphic(GameAssets.elevatorPIC, true, true, 173, 270);
 			startPoint = new FlxPoint(followObject._x, 75);
 			endPoint = new FlxPoint(0, 275); //Change this back later
 			down = true;
@@ -25,15 +25,27 @@ package Enemies
 			immovable = true;
 			allowCollisions = FlxObject.DOWN;
 			_x = new int;
-			solid = true; //This seems to fix the knock down issue Old code: solid = false;
+			solid = true; //This seems to fix the knock down issue 
+		}
+		
+		override protected function createAnimations():void
+		{
+			addAnimation("down", [0], 0, false);
+			addAnimation("up", [1], 0, false);
+			
 		}
 		
 		override public function update():void
 		{
-			//For the humans
 			
+			if (down == true)
+				play("down");
+			else
+				play("up");
+			//For the humans
 			 _x = x;
-			super.updateControls();
+			
+			 super.updateControls();
 		}
 	
 	/**
