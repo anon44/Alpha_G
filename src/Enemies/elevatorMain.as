@@ -46,20 +46,26 @@ package Enemies
 		
 		/**
 		 * Create the animations 
-		 * Will add later
 		 */
 		
+		protected function createAnimations():void
+		{
+ 
+		} 
+		 
+		 
 		//This is for to create the turn around animation for the step
 		// This should work with the code
 		private function turnAround():void
 		{
-			if (facing == FlxObject.LEFT)
+			if (facing == FlxObject.RIGHT)
 			{
-				facing = FlxObject.RIGHT;
+				facing = FlxObject.LEFT;
+				
 			}
 			else
 			{
-				facing = FlxObject.LEFT;
+				facing = FlxObject.RIGHT;
 			}
 		}
 		 
@@ -109,11 +115,11 @@ package Enemies
 					}//End of else if
 			}//End of movement 
 			
-			if (followObject._x <= x-25 && facing == FlxObject.LEFT)
+			if (followObject._x >= x-25 && facing == FlxObject.LEFT)
 			{
 				turnAround();
 			}
-			if (followObject._x>= x+25 && facing == FlxObject.RIGHT)
+			if (followObject._x<= x+25 && facing == FlxObject.RIGHT)
 			{
 				turnAround();
 			}
