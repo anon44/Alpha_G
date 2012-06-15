@@ -32,9 +32,9 @@ package  Menus
 			add(human);
 			
 			//G
-			elevator = new Elevator1(FlxG.width / 2 + 50, -20);
-			elevator.startPoint.y = 0
-			elevator.endPoint.y = 80;
+			elevator = new Elevator1(FlxG.width / 2 + 50, -200);
+			elevator.startPoint.y = -85;
+			elevator.endPoint.y = -10;
 			add(elevator);
 			
 			//Info
@@ -73,7 +73,7 @@ package  Menus
 				if (human.x > FlxG.width / 2+10)
 				{
 					elevator.moves = true;
-					elevator.x = human.x;
+					elevator.x = human.x -25;
 				}
 			}
 			
