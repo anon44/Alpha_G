@@ -27,7 +27,6 @@ package Enemies
 		{
 			super(X, Y);
 			drag.x = 25; //We are adding a little drag for now
-			//loadGraphic(GameAssets.humanPNG); Hide this for now
 			visible = false;
 		}
 		
