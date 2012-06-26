@@ -61,7 +61,6 @@ package Enemies
 			if (facing == FlxObject.RIGHT)
 			{
 				facing = FlxObject.LEFT;
-				
 			}
 			else
 			{
@@ -77,8 +76,6 @@ package Enemies
 			 super.update();
 			 updateControls();
 		 }
-		 
-		 
 		 /**
 		  * The basic movement of the elevators 
 		  */

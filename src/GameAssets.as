@@ -11,7 +11,10 @@ package
 		[Embed(source = "../src/Images/hearts.png")] public static var heartPNG:Class;
 		[Embed(source = "../src/Images/blood.png")] public static var blood:Class;
 		//G Stuff
-		[Embed(source = "../src/Images/elevator.png")] public static var elevatorPIC:Class;
+		//[Embed(source = "../src/Images/elevator.png")] public static var elevatorPIC:Class;
+		//[Embed(source = "../src/Images/elevator2.png")] public static var elevator2PIC:Class;
+		
+		[Embed(source = "P:/Other Vids/Pics/g.png")] public static var elevatorPIC:Class;
 		[Embed(source = "../src/Images/elevator2.png")] public static var elevator2PIC:Class;
 		
 		//Moving Objects

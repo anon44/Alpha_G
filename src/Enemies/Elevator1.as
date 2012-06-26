@@ -15,9 +15,9 @@ package Enemies
 		public function Elevator1(X:int, Y:int):void
 		{
 			super(X, Y);
-			loadGraphic(GameAssets.elevatorPIC, true, true, 173, 270);//Size we need to make
-			startPoint = new FlxPoint(followObject._x, 50);
-			endPoint = new FlxPoint(0, 275); 
+			loadGraphic(GameAssets.elevatorPIC, true, true, 130, 240);//Size we need to make
+			startPoint = new FlxPoint(followObject._x, -50);
+			endPoint = new FlxPoint(0, 55); 
 			down = true;
 			moves = false;
 			velocity.y = RUNSPEED;
@@ -29,9 +29,8 @@ package Enemies
 		
 		override protected function createAnimations():void
 		{
-			addAnimation("down", [2], 0, false);
-			addAnimation("up", [3], 0, false);
-			
+			addAnimation("down", [0], 0, false);
+			addAnimation("up", [1], 0, false);
 		}
 		/**
 		 * Update each frame

@@ -16,9 +16,9 @@ package Enemies
 		public function Elevator2(X:int, Y:int):void
 		{
 			super(X, Y);
-			loadGraphic(GameAssets.elevatorPIC, true, true, 173, 270);
-			startPoint = new FlxPoint(followObject._x, 75);
-			endPoint = new FlxPoint(0, 275); //Change this back later
+			loadGraphic(GameAssets.elevatorPIC, true, true, 130, 240);
+			startPoint = new FlxPoint(followObject._x, -50);
+			endPoint = new FlxPoint(0, 55); //Change this back later
 			down = true;
 			moves = false;
 			velocity.y = RUNSPEED;
@@ -30,21 +30,18 @@ package Enemies
 		
 		override protected function createAnimations():void
 		{
-			addAnimation("down", [0], 0, false);
-			addAnimation("up", [1], 0, false);
-			
+			addAnimation("down", [2], 0, false);
+			addAnimation("up", [3], 0, false);
 		}
 		
 		override public function update():void
 		{
-			
 			if (down == true)
 				play("down");
 			else
 				play("up");
 			//For the humans
 			 _x = x;
-			
 			 super.updateControls();
 		}
 	
