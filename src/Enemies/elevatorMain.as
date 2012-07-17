@@ -13,8 +13,7 @@ package Enemies
 	import SideScroller.*;
 	import levels.PlayState;
 	import org.flixel.plugin.photonstorm.*;
-	
-	
+
 	public class elevatorMain extends FlxSprite
 	{
 		/**
@@ -40,34 +39,28 @@ package Enemies
 			velocity.y = RUNSPEED;
 			immovable = true;
 			allowCollisions = FlxObject.ANY;
-			facing = FlxObject.LEFT;
 			solid = true; 
 		}
-		
 		/**
 		 * Create the animations 
 		 */
-		
 		protected function createAnimations():void
 		{
  
 		} 
-		 
-		 
 		//This is for to create the turn around animation for the step
 		// This should work with the code
 		private function turnAround():void
 		{
-			if (facing == FlxObject.RIGHT)
-			{
-				facing = FlxObject.LEFT;
-			}
-			else
+			if (facing == FlxObject.LEFT)
 			{
 				facing = FlxObject.RIGHT;
 			}
+			else
+			{
+				facing = FlxObject.LEFT;
+			}
 		}
-		 
 		 /**
 		  * Update each time step
 		  */
@@ -91,16 +84,27 @@ package Enemies
 						down = true;
 						
 						FlxG.shake(.005, .1); // Shake the level
-						FlxG.play(GameAssets.stompBoom);
+						//FlxG.play(GameAssets.stompBoom);
 						velocity.y = -155;		
 					}
 				
 					else if (y <= startPoint.y)//If the elevator has not reached the upper limit then send the elevator up
 					{
+						//To test if the player is to the right or the left of the g
+						if (followObject._x > x-40 && facing == FlxObject.LEFT)
+						{
+							turnAround();
+						}
+						if (followObject._x < x+40 && facing == FlxObject.RIGHT)
+						{
+							turnAround();
+						}
 						x = followObject._x; //Follow the follow object
 						y = startPoint.y; //Reached the bottom 
 						
 						velocity.y = +200;
+						
+						down = false;
 						
 						if (followObject._a == 0) //To detect if the player is near the step
 						{
@@ -111,15 +115,7 @@ package Enemies
 						}
 					}//End of else if
 			}//End of movement 
-			
-			if (followObject._x >= x-25 && facing == FlxObject.LEFT)
-			{
-				turnAround();
-			}
-			if (followObject._x<= x+25 && facing == FlxObject.RIGHT)
-			{
-				turnAround();
-			}
+			 
 		 }//End of update
 		 
 		 /**
