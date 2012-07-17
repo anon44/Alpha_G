@@ -26,8 +26,9 @@ package Enemies
 		public function followObject(X:int , Y:int) 
 		{
 			super(X, Y);
-			drag.x = 25; //We are adding a little drag for now
 			visible = false;
+			maxVelocity.x = 50;
+			
 		}
 		
 		override public function update():void
@@ -37,11 +38,11 @@ package Enemies
 			//this.yChange = Math.round(PlayState4._player.y - this.y);
 			this.xChange = Math.round(Player._x - this.x);
 			//this.yMove = Math.round(yChange / 20);
-			this.xMove = Math.round(xChange / 35);
+			this.xMove = Math.round(xChange / 20);
 			//this.y += yMove;
-			this.x += xMove;
+			this.velocity.x +=xMove;
 			_x = x;
-			_a = acceleration.x;
+			_a = velocity.x ;
 		}
 	}
 
