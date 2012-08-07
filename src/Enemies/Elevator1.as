@@ -37,6 +37,7 @@ package Enemies
 		 */
 		override public function update():void
 		{
+			acceleration.x = followObject._a; //This works but needs more adjustments
 			if (down == true)
 				play("down");
 			else
