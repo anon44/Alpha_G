@@ -4,8 +4,6 @@ package
 
 	public class GameAssets 
 	{
-		
-		
 		//Player Stuff
 		[Embed(source = "../src/Images/player.png")] public static var player:Class;
 		[Embed(source = "../src/Images/hearts.png")] public static var heartPNG:Class;
@@ -14,7 +12,7 @@ package
 		//[Embed(source = "../src/Images/elevator.png")] public static var elevatorPIC:Class;
 		//[Embed(source = "../src/Images/elevator2.png")] public static var elevator2PIC:Class;
 		
-		[Embed(source = "P:/Other Vids/Pics/g.png")] public static var elevatorPIC:Class;
+		[Embed(source = "../src/Images/g.png")] public static var elevatorPIC:Class;
 		[Embed(source = "../src/Images/elevator2.png")] public static var elevator2PIC:Class;
 		
 		//Moving Objects
@@ -42,14 +40,14 @@ package
 		[Embed(source = "../src/Images/glass1.png")] public static var glass1PNG:Class;
 		
 		//Sounds
-		[Embed(source = "../src/Sounds/hurtPlayer.mp3")] public static var playerHit:Class;
+		/*[Embed(source = "../src/Sounds/hurtPlayer.mp3")] public static var playerHit:Class;
 		[Embed(source = "../src/Sounds/82371__gynation__paper-crush-medium-2.mp3")] public static var humanHit:Class;
 		[Embed(source = "../src/Sounds/humanScream1.mp3")] public static var humanScream1:Class;
 		[Embed(source = "../src/Sounds/coinPickup.mp3")] public static var coinGet:Class;
 		[Embed(source = "../src/Sounds/35642__sandyrb__boom2.mp3")] public static var stompBoom:Class;
 		//[Embed(source = "../src/Sounds/35642__sandyrb__boom2.mp3")] public static var gGrunt:Class;
 		[Embed(source = "../src/Sounds/gLaugh.mp3")] public static var gLaugh:Class;
-		[Embed(source = "../src/Sounds/stompTree.mp3")] public static var stompTree:Class;
+		[Embed(source = "../src/Sounds/stompTree.mp3")] public static var stompTree:Class;*/
 		
 	}
 

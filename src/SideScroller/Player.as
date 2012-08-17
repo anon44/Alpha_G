@@ -94,7 +94,7 @@ package SideScroller
 		{
 			if (flickering)
 				return
-			FlxG.play(GameAssets.playerHit);
+			//FlxG.play(GameAssets.playerHit);
 			flicker(1.3);
 			health -= 1;
 		}
@@ -109,7 +109,7 @@ package SideScroller
 			super.kill();
 			//Play sound
 			//play("squished");
-			FlxG.play(GameAssets.gLaugh);
+			//FlxG.play(GameAssets.gLaugh);
 			//Gibs creator
 			_gibs = new FlxEmitter(0,0, -1.5);
 			_gibs.setXSpeed(-150,170);

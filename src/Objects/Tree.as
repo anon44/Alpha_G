@@ -54,7 +54,7 @@ package Objects
 			solid = false;
 			moves = false;
 			
-			FlxG.play(GameAssets.stompTree, .35);
+			//FlxG.play(GameAssets.stompTree, .35);
 			//Coins
 			//cE =   new coinEmitter(this.x, this.y);
 			//cE.start(true, 0, 0, 1);

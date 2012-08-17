@@ -66,6 +66,7 @@ package  Menus
 		override public function update():void
 		{
 			super.update();	
+			FlxG.overlap(elevator, human, killHuman);
 			if ( title.x > FlxG.width / 6-150)
 			{
 				title.velocity.x = 0;
@@ -86,7 +87,7 @@ package  Menus
 			{
 				FlxG.switchState(new Info());
 			}
-			FlxG.overlap(elevator, human, killHuman);
+			
 		}
 		
 		private function killHuman(_elevator:FlxObject, _human:FlxObject):void

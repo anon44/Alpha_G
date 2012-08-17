@@ -13,7 +13,6 @@ package Enemies
 	import SideScroller.*;
 	import levels.PlayState;
 	import org.flixel.plugin.photonstorm.*;
-
 	public class elevatorMain extends FlxSprite
 	{
 		/**
@@ -40,13 +39,14 @@ package Enemies
 			immovable = true;
 			allowCollisions = FlxObject.ANY;
 			solid = true; 
+			drag.x = 20;
 		}
 		/**
 		 * Create the animations 
 		 */
 		protected function createAnimations():void
 		{
- 
+			
 		} 
 		//This is for to create the turn around animation for the step
 		// This should work with the code
@@ -73,9 +73,10 @@ package Enemies
 		  * The basic movement of the elevators 
 		  */
 		 protected function updateControls():void
-		 {
+		  {
 			if(moves) //If move is true then move
-			{
+			{		
+					
 					//Going up
 					if(y >= endPoint.y)
 					{   

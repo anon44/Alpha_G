@@ -64,15 +64,13 @@ package  SideScroller
 				
 				if (followObject._x <= x-25 && facing == FlxObject.LEFT)
 				{
-					FlxG.play(GameAssets.humanScream1, .5);
+					//FlxG.play(GameAssets.humanScream1, .5);
 					turnAround();
 				}
 				else if (followObject._x>= x+25 && facing == FlxObject.RIGHT)
 				{
 					turnAround();
 				}
-				
-				
 	
 				if (velocity.x > 0 || velocity.x < -1)
 					play("running");
@@ -81,40 +79,6 @@ package  SideScroller
 			}
 						
 		}
-		/*private function removeSprite():void
-		{
-			super.update();
-			
-			var tx:int = int(x / 16);
-			var ty:int = int(y / 16);
-			
-			if (facing == FlxObject.LEFT)
-			{
-				//	31 is the Collide Index of our Tilemap (which sadly isn't exposed in Flixel 2.5, so is hard-coded here. Not ideal I appreciate)
-				if (Registry.map.getTile(tx - 1, ty) >= 31) //go to the right 
-				{
-					turnAround();
-					return;
-				}
-			}
-			
-			else
-			{
-				//	31 is the Collide Index of our Tilemap (which sadly isn't exposed in Flixel 2.5, so is hard-coded here. Not ideal I appreciate)
-				if (Registry.map.getTile(tx + 1, ty) >= 31 )
-				{
-					turnAround();
-					return;
-				}
-			}
-			
-			//	Check the tiles below it
-			
-			if (isTouching(FlxObject.FLOOR) == false)
-			{
-				turnAround();
-			}
-		}*/
 		
 		private function turnAround():void
 		{
@@ -122,7 +86,6 @@ package  SideScroller
 			{
 				facing = FlxObject.RIGHT;
 				this.velocity.x += xMove;
-				
 			}
 			else
 			{
@@ -142,12 +105,12 @@ package  SideScroller
 			if (!alive)
 				return;
 			alive = false;
-			moves = false;
+			//moves = false; Leave this for now
 			solid = false;
 			play("killed");
 			frame = 0;
 			//Play sound 
-			FlxG.play(GameAssets.humanHit, .75);
+			//FlxG.play(GameAssets.humanHit, .75);
 			
 			//Gibs creator
 			_gibs = new FlxEmitter(0,0, -1.5);
@@ -177,7 +140,6 @@ package  SideScroller
 				super.kill();
 			}
 		}
-		
 		
 	}//End of Class
 

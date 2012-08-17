@@ -234,7 +234,7 @@ package levels
 			FlxG.overlap(_elevators, _trees, hitTree);
 			
 			//Spawner for the objects		
-			if (_timer > 5)
+			if (_timer > 2)
 			{
 				addHumans();
 				_timer = 0;
@@ -295,7 +295,7 @@ package levels
 		//Collect Coin
 		private function collectedCoin(player:FlxObject, coin:FlxObject):void
 		{
-			FlxG.play(GameAssets.coinGet, 2);
+			//FlxG.play(GameAssets.coinGet, 2);
 			coin.kill();
 			FlxG.score += 1;
 			scoreText.text = "Score: " + FlxG.score.toString();
